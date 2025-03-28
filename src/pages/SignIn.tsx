@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignIn.css';
 
@@ -7,15 +7,20 @@ const SignIn: React.FC = () => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [isFormValid, setIsFormValid] = useState(false);
   const navigate = useNavigate();
 
   const validateEmail = (email: string) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
   const validatePassword = (password: string) => password.length >= 8 && /[A-Za-z]/.test(password) && /[0-9]/.test(password);
 
+  useEffect(() => {
+    setIsFormValid(validateEmail(email) && validatePassword(password));
+  }, [email, password]);
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    let valid = true;
 
+    let valid = true;
     if (!validateEmail(email)) {
       setEmailError('Invalid email format');
       valid = false;
@@ -53,7 +58,9 @@ const SignIn: React.FC = () => {
           </div>
 
           <div className="button-container">
-            <button type="submit" className="login-btn">Login</button>
+            <button type="submit" className={`login-btn ${isFormValid ? 'active' : 'inactive'}`}>
+              Login
+            </button>
           </div>
         </form>
       </div>
