@@ -1,5 +1,7 @@
 import React from 'react';
 import './Account.css';
+import ProfilePic from '../assets/download2.jfif';
+import CameraIcon from '../assets/images.jfif';
 
 const Account: React.FC = () => {
   return (
@@ -9,12 +11,12 @@ const Account: React.FC = () => {
         <div className="account-profile">
           <div className="profile-pic-container">
             <img 
-              src="/src/assets/download2.jfif" 
+              src={ProfilePic}
               alt="Profile" 
               className="profile-pic" 
             />
             <img 
-              src="/src/assets/images.jfif" 
+              src={CameraIcon}
               alt="Camera" 
               className="camera-icon" 
             />
